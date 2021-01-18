@@ -1,13 +1,15 @@
 {
-    "name": "symfony/ux-chartjs",
+    "name": "xkzl/ux-chartjs",
     "type": "symfony-bundle",
     "description": "Chart.js integration for Symfony",
-    "keywords": [
-        "symfony-ux"
-    ],
+    "keywords": ["symfony", "ux", "chart", "chart.js", "chartjs"],
     "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Marco Meyer",
+            "email": "marco.meyerconde@gmail.com"
+        },
         {
             "name": "Titouan Galopin",
             "email": "galopintitouan@gmail.com"
@@ -19,11 +21,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "Symfony\\UX\\Chartjs\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "Symfony\\UX\\Chartjs\\": "."
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Symfony\\UX\\Chartjs\\": "./Tests"
+        }
     },
     "require": {
         "php": ">=7.2.5",
@@ -32,19 +36,15 @@
         "symfony/http-kernel": "^4.4.17|^5.0"
     },
     "require-dev": {
+        "phpunit/phpunit": "^8.5",
         "symfony/framework-bundle": "^4.4.17|^5.0",
-        "symfony/phpunit-bridge": "^5.2",
         "symfony/twig-bundle": "^4.4.17|^5.0",
         "symfony/var-dumper": "^4.4.17|^5.0"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-main": "1.1-dev"
+    "config": {
+        "preferred-install": {
+            "*": "dist"
         },
-        "thanks": {
-            "name": "symfony/ux",
-            "url": "https://github.com/symfony/ux"
-        }
-    },
-    "minimum-stability": "dev"
+        "sort-packages": true
+    }
 }

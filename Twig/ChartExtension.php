@@ -27,17 +27,31 @@ class ChartExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('render_chart', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('chartJs.render', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('chartJs.jsFile', [$this, 'getJsLocation'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('chartJs.cssFile', [$this, 'getStylesheetLocation'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
+    }
+
+    public function getJsLocation(Environment $env, Chart $chart, array $attributes = []): string
+    {
+	$url = "bundles/xkzl/ux-chartjs/chart.js";
+	return "<script src='".$url."'></script>";
+    }
+
+    public function getCssLocation(Environment $env, Chart $chart, array $attributes = []): string
+    {
+	$url = "bundles/xkzl/ux-chartjs/stylesheet.css";
+	return "<link rel='stylesheet' href='".$url."'>";
     }
 
     public function renderChart(Environment $env, Chart $chart, array $attributes = []): string
     {
         $chart->setAttributes(array_merge($chart->getAttributes(), $attributes));
 
-        $html = '
+	    $html = '
             <canvas
-                data-controller="'.trim($chart->getDataController().' symfony--ux-chartjs--chart').'"
+                data-controller="'.trim($chart->getDataController().' @symfony/ux-chartjs/chart').'"
                 data-view="'.twig_escape_filter($env, json_encode($chart->createView()), 'html_attr').'"
         ';
 
