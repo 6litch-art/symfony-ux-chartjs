@@ -1,11 +1,15 @@
 {
-    "name": "symfony/ux-chartjs",
+    "name": "xkzl/ux-chartjs",
     "type": "symfony-bundle",
     "description": "Chart.js integration for Symfony",
     "keywords": ["symfony", "ux", "chart", "chart.js", "chartjs"],
     "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Marco Meyer",
+            "email": "marco.meyerconde@gmail.com"
+        },
         {
             "name": "Titouan Galopin",
             "email": "galopintitouan@gmail.com"
