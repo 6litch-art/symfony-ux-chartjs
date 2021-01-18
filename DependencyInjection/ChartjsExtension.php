@@ -38,7 +38,11 @@ class ChartjsExtension extends Extension
             ->setPublic(false)
         ;
 
+        $container->registerForAutoconfiguration(ChartRuntime::class)
+            ->addTag('twig.runtime');
+
         if (class_exists(Environment::class)) {
+
             $container
                 ->setDefinition('chartjs.twig_extension', new Definition(ChartExtension::class))
                 ->addTag('twig.extension')

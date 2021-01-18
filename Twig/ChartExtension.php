@@ -17,42 +17,18 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * @author Titouan Galopin <galopintitouan@gmail.com>
+ * @author Marco Meyer <marco.meyeconde@gmail.com>
  *
  * @final
  * @experimental
  */
+
 class ChartExtension extends AbstractExtension
 {
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('render_chart', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('chartjs_render', [ChartRuntime::class, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
-    }
-
-    public function renderChart(Environment $env, Chart $chart, array $attributes = []): string
-    {
-        $chart->setAttributes(array_merge($chart->getAttributes(), $attributes));
-
-        $html = '
-            <canvas
-                data-controller="'.trim($chart->getDataController().' @symfony/ux-chartjs/chart').'"
-                data-view="'.twig_escape_filter($env, json_encode($chart->createView()), 'html_attr').'"
-        ';
-
-        foreach ($chart->getAttributes() as $name => $value) {
-            if ('data-controller' === $name) {
-                continue;
-            }
-
-            if (true === $value) {
-                $html .= $name.'="'.$name.'" ';
-            } elseif (false !== $value) {
-                $html .= $name.'="'.$value.'" ';
-            }
-        }
-
-        return trim($html).'></canvas>';
     }
 }
