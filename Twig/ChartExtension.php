@@ -25,13 +25,9 @@ use App\Twig\ChartRuntime;
  * @experimental
  */
 
-<<<<<<< HEAD
 use Twig\Extension\RuntimeExtensionInterface;
 
 class ChartExtension extends AbstractExtension implements GlobalsInterface
-=======
-class ChartExtension extends AbstractExtension
->>>>>>> d4ec09d039beff6554f736c9ec9a1a97fa3230fe
 {
     protected $container;
     // public function __construct(ContainerBuilder $container)
@@ -42,7 +38,6 @@ class ChartExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-<<<<<<< HEAD
             new TwigFunction('render_chart', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
             new TwigFunction('chartjs_render', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
@@ -81,9 +76,4 @@ class ChartExtension extends AbstractExtension
 
         return "<canvas$attr></canvas>\n$script";
     }
-=======
-            new TwigFunction('chartjs_render', [ChartRuntime::class, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
-        ];
-    }
->>>>>>> d4ec09d039beff6554f736c9ec9a1a97fa3230fe
 }
