@@ -16,43 +16,64 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+use Twig\Extension\GlobalsInterface;
+use App\Twig\ChartRuntime;
 /**
- * @author Titouan Galopin <galopintitouan@gmail.com>
+ * @author Marco Meyer <marco.meyeconde@gmail.com>
  *
  * @final
  * @experimental
  */
-class ChartExtension extends AbstractExtension
+
+use Twig\Extension\RuntimeExtensionInterface;
+
+class ChartExtension extends AbstractExtension implements GlobalsInterface
 {
+    protected $container;
+    // public function __construct(ContainerBuilder $container)
+    // {
+    //     $this->container = $container;
+    // }
+
     public function getFunctions(): array
     {
         return [
             new TwigFunction('render_chart', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('chartjs_render', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
+    }
+
+    public function getGlobals(): array {
+
+        return array(
+            'chartjs' => "XXXXXXXXX",
+            'chartjs_stylesheet' => "YYYY"
+        );
     }
 
     public function renderChart(Environment $env, Chart $chart, array $attributes = []): string
     {
+        $attributes["id"] = ($attributes["id"] ?? uniqid("chartjs_"));
         $chart->setAttributes(array_merge($chart->getAttributes(), $attributes));
 
-        $html = '
-            <canvas
-                data-controller="'.trim($chart->getDataController().' @symfony/ux-chartjs/chart').'"
-                data-view="'.twig_escape_filter($env, json_encode($chart->createView()), 'html_attr').'"
-        ';
+        $script =  "<script>
+                        var ctx = document.getElementById('".$chart->getAttributes()["id"]."').getContext('2d');
+                        new Chart(ctx, ".json_encode($chart->createView()).");
+                    </script>";
 
+        $attr = "";
         foreach ($chart->getAttributes() as $name => $value) {
-            if ('data-controller' === $name) {
+
+            if ('data-controller' === $name)
                 continue;
-            }
 
             if (true === $value) {
-                $html .= $name.'="'.$name.'" ';
+                $attr .= ' '.$name.'="'.$name.'"';
             } elseif (false !== $value) {
-                $html .= $name.'="'.$value.'" ';
+                $attr .= ' '.$name.'="'.$value.'"';
             }
         }
 
-        return trim($html).'></canvas>';
+        return "<canvas$attr></canvas>\n$script";
     }
 }
