@@ -1,5 +1,5 @@
 {
-    "name": "symfony/ux-chartjs",
+    "name": "xkzl/ux-chartjs",
     "type": "symfony-bundle",
     "description": "Chart.js integration for Symfony",
     "keywords": ["symfony", "ux", "chart", "chart.js", "chartjs"],

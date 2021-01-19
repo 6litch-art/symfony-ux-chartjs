@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Symfony\UX\Chartjs\Kernel;
+namespace Symfony\UX\Chartjs\Tests\Kernel;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -34,7 +34,7 @@ class FrameworkAppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(function (ContainerBuilder $container) {
-            $container->loadFromExtension('framework', ['secret' => '$ecret']);
+            $container->loadFromExtension('framework', ['secret' => '$ecret', 'test' => true]);
         });
     }
 }
