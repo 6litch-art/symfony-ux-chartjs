@@ -11,16 +11,20 @@
 
 namespace Symfony\UX\Chartjs\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Config\Definition\Processor;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\UX\Chartjs\Builder\ChartBuilder;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Twig\ChartExtension;
+use Symfony\UX\Chartjs\Twig\ChartjsTwigExtension;
 use Twig\Environment;
 
 /**
- * @author Titouan Galopin <galopintitouan@gmail.com>
+ * @author Marco Meyer <marco.meyerconde@gmail.com>
  *
  * @internal
  */
@@ -28,6 +32,7 @@ class ChartjsExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
+        // Load builder
         $container
             ->setDefinition('chartjs.builder', new Definition(ChartBuilder::class))
             ->setPublic(false)
@@ -38,16 +43,22 @@ class ChartjsExtension extends Extension
             ->setPublic(false)
         ;
 
-        $container->registerForAutoconfiguration(ChartRuntime::class)
-            ->addTag('twig.runtime');
+        // Format XML
+        $loader = new XmlFileLoader($container, new FileLocator(\dirname(__DIR__, 1).'/Resources/config'));
+        $loader->load('services.xml');
 
-        if (class_exists(Environment::class)) {
+        // Format YAML
+        //$loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        //$loader->load('services.yaml');
 
-            $container
-                ->setDefinition('chartjs.twig_extension', new Definition(ChartExtension::class))
-                ->addTag('twig.extension')
-                ->setPublic(false)
-            ;
-        }
+        // Format PHP
+        //$loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        //$loader->load('services.php');
+
+        //
+        // Configuration file: ./config/package/acme_bundle.yaml
+        $processor = new Processor();
+        $configuration = new Configuration();
+        $config = $processor->processConfiguration($configuration, $configs);
     }
 }

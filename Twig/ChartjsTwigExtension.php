@@ -17,23 +17,26 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 use Twig\Extension\GlobalsInterface;
-use App\Twig\ChartRuntime;
+
 /**
- * @author Marco Meyer <marco.meyeconde@gmail.com>
+ * @author Marco Meyer <marco.meyerconde@gmail.com>
  *
  * @final
  * @experimental
  */
 
-use Twig\Extension\RuntimeExtensionInterface;
+use Symfony\Component\DependencyInjection\Container;
 
-class ChartExtension extends AbstractExtension implements GlobalsInterface
+class ChartjsTwigExtension extends AbstractExtension implements GlobalsInterface
 {
-    protected $container;
-    // public function __construct(ContainerBuilder $container)
-    // {
-    //     $this->container = $container;
-    // }
+    protected $chartJs;
+    protected $stylesheet;
+
+    public function __construct($chartJs = null, $stylesheet = null)
+    {
+        $this->chartJs    = $chartJs    ?? "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js";
+        $this->stylesheet = $stylesheet ?? "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css";
+    }
 
     public function getFunctions(): array
     {
@@ -46,8 +49,8 @@ class ChartExtension extends AbstractExtension implements GlobalsInterface
     public function getGlobals(): array {
 
         return array(
-            'chartjs' => "XXXXXXXXX",
-            'chartjs_stylesheet' => "YYYY"
+            'chartjs' => $this->chartJs,
+            'chartjs_stylesheet' => $this->stylesheet
         );
     }
 
