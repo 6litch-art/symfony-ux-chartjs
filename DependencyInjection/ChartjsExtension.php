@@ -35,13 +35,10 @@ class ChartjsExtension extends Extension
         // Load builder
         $container
             ->setDefinition('chartjs.builder', new Definition(ChartBuilder::class))
-            ->setPublic(false)
-        ;
-
+            ->setPublic(false);
         $container
             ->setAlias(ChartBuilderInterface::class, 'chartjs.builder')
-            ->setPublic(false)
-        ;
+            ->setPublic(false);
 
         // Format XML
         $loader = new XmlFileLoader($container, new FileLocator(\dirname(__DIR__, 1).'/Resources/config'));
@@ -60,5 +57,17 @@ class ChartjsExtension extends Extension
         $processor = new Processor();
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
+        $this->setConfiguration($container, $config, $configuration->getTreeBuilder()->getRootNode()->getNode()->getName());
+    }
+
+    public function setConfiguration(ContainerBuilder $container, array $config, $globalKey = "")
+    {
+        foreach($config as $key => $value) {
+
+            if (!empty($globalKey)) $key = $globalKey.".".$key;
+
+            if (is_array($value)) $this->setConfiguration($container, $value, $key);
+            else $container->setParameter($key, $value);
+        }
     }
 }

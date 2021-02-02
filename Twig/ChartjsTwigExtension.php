@@ -16,6 +16,8 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+
+use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Extension\GlobalsInterface;
 
 /**
@@ -32,10 +34,23 @@ class ChartjsTwigExtension extends AbstractExtension implements GlobalsInterface
     protected $chartJs;
     protected $stylesheet;
 
-    public function __construct($chartJs = null, $stylesheet = null)
+    public function getParameter(string $key = "") {
+
+        if( !isset($this->container) )
+            throw new Exception("Symfony container not found in BaseService. Did you overloaded BaseService::__constructor ?");
+
+        if(empty($key))
+           return $this->container->getParameter()->all();
+
+        return ($this->container->hasParameter($key) ? $this->container->getParameter($key) : null);
+    }
+
+    public function __construct(KernelInterface $kernel)
     {
-        $this->chartJs    = $chartJs    ?? "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js";
-        $this->stylesheet = $stylesheet ?? "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css";
+        $this->container = $kernel->getContainer();
+
+        $this->chartJs = $this->container->getParameter("chartjs.javascript");
+        $this->stylesheet = $this->container->getParameter("chartjs.stylesheet");
     }
 
     public function getFunctions(): array

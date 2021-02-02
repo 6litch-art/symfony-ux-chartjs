@@ -6,8 +6,6 @@ use \Symfony\Component\HttpKernel\Event\RequestEvent;
 use \Symfony\Component\HttpFoundation\Response;
 
 use Twig\Environment;
-
-use LOL\Base\Test2;
 use Base\BaseBundle\Service\BaseService;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
@@ -19,11 +17,18 @@ class ChartjsListener
     private $baseService;
     private $adminContextProvider;
 
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel, Environment $twig)
     {
+        $this->jsFile  = $kernel->getContainer()->getParameter("chartjs.javascript");
+        $this->cssFile = $kernel->getContainer()->getParameter("chartjs.stylesheet");
+
         // Attempt to find BaseService from BaseBundle
         if(class_exists(BaseService::class))
             $this->baseService = $kernel->getContainer()->get(BaseService::class);
+
+        // Attempt to get twig
+        if (class_exists(Environment::class))
+            $this->twig = $twig;
 
         // Attempt to declare EA provider (if found)
         if(class_exists(AdminContextProvider::class))
@@ -34,21 +39,22 @@ class ChartjsListener
 
     public function onKernelRequest(RequestEvent $event)
     {
-        // PASS FILE FROM CONFIG.. (Framework config, Flex config, Environment config, Local default config)
-        $jsFile = "test.js";
-        $cssFile = "test.css";
-
+        // If BaseService from my bundle is detected..
         if($this->baseService) {
 
-            $this->baseService->addJavascriptFile($jsFile);
-            $this->baseService->addStylesheetFile($cssFile);
+            $this->baseService->addJavascriptFile($this->jsFile);
+            $this->baseService->addStylesheetFile($this->cssFile);
 
+        // If EA is detected
         } else if($this->adminContextProvider) {
 
             $adminContext = $this->adminContextProvider->getContext();
-            if($adminContext) $adminContext->getAssets()->addCssFile($cssFile);
-            if($adminContext) $adminContext->getAssets()->addJsFile($jsFile);
+            if($adminContext) $adminContext->getAssets()->addCssFile($this->cssFile);
+            if($adminContext) $adminContext->getAssets()->addJsFile($this->jsFile);
 
+        } else {
+            $this->twig->addGlobal("javascripts", "<script src='$this->jsFile'></script>");
+            $this->twig->addGlobal("stylesheets", "<link rel='stylesheet' href='$this->cssFile'>");
         }
     }
 }

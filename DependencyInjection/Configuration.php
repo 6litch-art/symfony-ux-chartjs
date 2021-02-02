@@ -14,23 +14,28 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('ux_chartjs');
+        $this->treeBuilder = new TreeBuilder('chartjs');
 
-        $rootNode = $treeBuilder->getRootNode();
+        $rootNode = $this->treeBuilder->getRootNode();
         $this->addGlobalOptionsSection($rootNode);
 
-        return $treeBuilder;
+        return $this->treeBuilder;
     }
+
+    private $treeBuilder;
+    public function getTreeBuilder() { return $this->treeBuilder; }
 
     private function addGlobalOptionsSection(ArrayNodeDefinition $rootNode)
     {
         $rootNode
             ->children()
-                ->scalarNode('chartjs')
+                ->scalarNode('javascript')
                     ->info('Chart.js file location')
+                    ->defaultValue('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js')
                 ->end()
-                ->scalarNode('chartjs_stylesheet')
+                ->scalarNode('stylesheet')
                     ->info('Chart.js stylesheet')
+                    ->defaultValue('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css')
                 ->end()
             ->end()
         ;
