@@ -6,7 +6,7 @@ use \Symfony\Component\HttpKernel\Event\RequestEvent;
 use \Symfony\Component\HttpFoundation\Response;
 
 use Twig\Environment;
-use Base\BaseBundle\Service\BaseService;
+use Base\Service\BaseService;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 use Symfony\Component\HttpKernel\KernelInterface;

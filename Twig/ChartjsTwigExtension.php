@@ -20,6 +20,8 @@ use Twig\TwigFunction;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Extension\GlobalsInterface;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
+
 /**
  * @author Marco Meyer <marco.meyerconde@gmail.com>
  *

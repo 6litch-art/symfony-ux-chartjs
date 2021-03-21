@@ -44,16 +44,6 @@ class ChartjsExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(\dirname(__DIR__, 1).'/Resources/config'));
         $loader->load('services.xml');
 
-        // Format YAML
-        //$loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        //$loader->load('services.yaml');
-
-        // Format PHP
-        //$loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        //$loader->load('services.php');
-
-        //
-        // Configuration file: ./config/package/acme_bundle.yaml
         $processor = new Processor();
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
