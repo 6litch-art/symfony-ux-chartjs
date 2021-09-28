@@ -49,12 +49,12 @@ class ChartjsListener
         } else if($this->adminContextProvider) {
 
             $adminContext = $this->adminContextProvider->getContext();
-            if($adminContext) $adminContext->getAssets()->addCssFile($this->cssFile);
-            if($adminContext) $adminContext->getAssets()->addJsFile($this->jsFile);
+            if($adminContext) $adminContext->getAssets()->addCssAsset($this->cssFile);
+            if($adminContext) $adminContext->getAssets()->addJsAsset($this->jsFile);
 
         } else {
-            $this->twig->addGlobal("javascripts", "<script src='$this->jsFile'></script>");
-            $this->twig->addGlobal("stylesheets", "<link rel='stylesheet' href='$this->cssFile'>");
+            $this->twig->addGlobal("javascripts", "<script src='".$this->jsFile."'></script>");
+            $this->twig->addGlobal("stylesheets", "<link rel='stylesheet' href='".$this->cssFile."'>");
         }
     }
 }
