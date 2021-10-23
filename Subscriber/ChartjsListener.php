@@ -8,53 +8,68 @@ use \Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Base\Service\BaseService;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
-
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class ChartjsListener
 {
     private $twig;
-    private $baseService;
-    private $adminContextProvider;
 
-    public function __construct(KernelInterface $kernel, Environment $twig)
+    public function __construct(ParameterBagInterface $parameterBag, Environment $twig)
     {
-        $this->jsFile  = $kernel->getContainer()->getParameter("chartjs.javascript");
-        $this->cssFile = $kernel->getContainer()->getParameter("chartjs.stylesheet");
+        $this->twig       = $twig;
 
-        // Attempt to find BaseService from BaseBundle
-        if(class_exists(BaseService::class))
-            $this->baseService = $kernel->getContainer()->get(BaseService::class);
+        $this->autoAppend = $parameterBag->get("chartjs.autoappend");
+        $this->javascript = $parameterBag->get("chartjs.javascript");
+        $this->stylesheet = $parameterBag->get("chartjs.stylesheet");
+    }
 
-        // Attempt to get twig
-        if (class_exists(Environment::class))
-            $this->twig = $twig;
+    private function allowRender($event)
+    {
+        if (!$this->autoAppend)
+            return false;
 
-        // Attempt to declare EA provider (if found)
-        if(class_exists(AdminContextProvider::class))
-            $this->adminContextProvider = new AdminContextProvider(
-                $kernel->getContainer()->get("request_stack")
-            );
+        if (!in_array($event->getResponse()->headers->get('content-type'), array('text/html', null)))
+            return false;
+
+        $contentType = $event->getResponse()->headers->get('content-type');
+        if ($contentType && !str_contains($contentType, "text/html"))
+            return false;
+    
+        if (!$event->isMainRequest())
+            return false;
+        
+        return true;
     }
 
     public function onKernelRequest(RequestEvent $event)
     {
-        // If BaseService from my bundle is detected..
-        if($this->baseService) {
+        $javascript = "<script src='".$this->javascript."'></script>";
+        $stylesheet = "<link rel='stylesheet' href='".$this->stylesheet."'>";
+        
+        $this->twig->addGlobal("chartjs", ["javascript" => $javascript, "stylesheet" => $stylesheet]);
+    }
 
-            $this->baseService->addJavascriptFile($this->jsFile);
-            $this->baseService->addStylesheetFile($this->cssFile);
+    public function onKernelResponse(ResponseEvent $event)
+    {
+        if (!$this->allowRender($event)) return false;
 
-        // If EA is detected
-        } else if($this->adminContextProvider) {
+        $response = $event->getResponse();
+        $javascript = $this->twig->getGlobals()["chartjs"]["javascript"] ?? "";
+        $stylesheet = $this->twig->getGlobals()["chartjs"]["stylesheet"] ?? "";
 
-            $adminContext = $this->adminContextProvider->getContext();
-            if($adminContext) $adminContext->getAssets()->addCssAsset($this->cssFile);
-            if($adminContext) $adminContext->getAssets()->addJsAsset($this->jsFile);
+        $content = preg_replace([
+            '/<\/head\b[^>]*>/',
+            '/<\/head\b[^>]*>/',
+        ], [
+            $javascript."$0",
+            $stylesheet."$0",
+        ], $response->getContent(), 1);
 
-        } else {
-            $this->twig->addGlobal("javascripts", "<script src='".$this->jsFile."'></script>");
-            $this->twig->addGlobal("stylesheets", "<link rel='stylesheet' href='".$this->cssFile."'>");
-        }
+        $response->setContent($content);
+
+        return true;
     }
 }

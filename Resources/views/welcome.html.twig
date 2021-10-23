@@ -66,17 +66,12 @@
 }
 </style>
 
-{% if stylesheets is defined %}{{ stylesheets|raw }}{% endif %}
-{% block stylesheets %}
-{% if base is defined %}{{ base.stylesheets|raw }}{% endif %}
-{# {{ encore_entry_link_tags('app') }} #}
-{% endblock %}
+{% block stylesheets %}{% endblock %}
+{{ stylesheets|default("")|raw }}
 
-{% if javascripts is defined %}{{ javascripts|raw }}{% endif %}
-{% block javascripts %}
-{% if base is defined %}{{ base.javascripts|raw }}{% endif %}
-{# {{ encore_entry_script_tags('app') }} #}
-{% endblock %}
+{% block javascripts %}{% endblock %}
+{{ javascripts|default("")|raw }}
+
 </head>
 
 	<body class="homepage">
@@ -85,7 +80,7 @@
 		</div>
 		<div class="content-overlay fade-in-up animation-delay__1">
 			<div class="hero-container">
-				<img class="chart-logo fade-in animation-delay__3" src="{{ asset('bundles/chartjs/assets/chartjs-logo.svg') }}" height="175">
+				<img class="chart-logo fade-in animation-delay__3" src="{{ asset('bundles/chartjs/assets/chartjs-logo.svg') }}" height="175">
 				<div class="fade-in fade-in animation-delay__5">
 					<h1 class="hero-title">Chart.js <span style="color:#000">+ Symfony</span></h1>
 					<h2 class="hero-subtitle">Simple yet flexible JavaScript charting for designers &amp; developers</h2>
@@ -156,14 +151,14 @@
 				</div>
 				<div class="feature-small">
 					<div class="feature-icon">
-						<img src="{{ asset('bundles/chartjs/assets/canvas-icon.svg') }}">
+						<img src="{{ asset('bundles/chartjs/assets/canvas-icon.svg') }}">
 					</div>
 					<h4 class="subtitle subtitle__small">HTML5 Canvas</h4>
 					<p class="description description__small">Great rendering performance across all modern browsers (IE11+).</p>
 				</div>
 				<div class="feature-small">
 					<div class="feature-icon">
-						<img src="{{ asset('bundles/chartjs/assets/responsive.svg') }}">
+						<img src="{{ asset('bundles/chartjs/assets/responsive.svg') }}">
 					</div>
 					<h4 class="subtitle subtitle__small">Responsive</h4>
 					<p class="description description__small">Redraws charts on window resize for perfect scale granularity.</p>
@@ -181,7 +176,7 @@
 
 		<footer class="fade-in animation-delay__8">
 			<div class="footer-logo">
-				<img src="{{ asset('bundles/chartjs/assets/icon.svg') }}">
+				<img src="{{ asset('bundles/chartjs/assets/icon.svg') }}">
 			</div>
 			<p class="footer-note">
 				Chart.js was built from the hard work of all
@@ -189,6 +184,6 @@
 			</p>
 		</footer>
 
-		<script async="" src="{{ asset('bundles/chartjs/assets/build.js') }}"></script>
+		<script async="" src="{{ asset('bundles/chartjs/assets/build.js') }}"></script>
 
 </body></html>

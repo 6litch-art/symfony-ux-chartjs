@@ -29,16 +29,18 @@ class Configuration implements ConfigurationInterface
     {
         $rootNode
             ->children()
+                ->booleanNode('autoappend')
+                    ->info('Auto-append required dependencies into HTML page')
+                    ->defaultValue(True)
+                    ->end()
                 ->scalarNode('javascript')
                     ->info('Chart.js file location')
                     ->defaultValue('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js')
-                ->end()
+                    ->end()
                 ->scalarNode('stylesheet')
                     ->info('Chart.js stylesheet')
                     ->defaultValue('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css')
-                ->end()
-            ->end()
-        ;
+                    ->end()
+            ->end();
     }
-
 }
