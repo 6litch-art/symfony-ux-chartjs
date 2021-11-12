@@ -30,35 +30,23 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  */
 
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ChartjsTwigExtension extends AbstractExtension implements GlobalsInterface
 {
-    protected $chartJs;
+    protected $javascript;
     protected $stylesheet;
 
-    public function getParameter(string $key = "") {
-
-        if( !isset($this->container) )
-            throw new Exception("Symfony container not found in BaseService. Did you overloaded BaseService::__constructor ?");
-
-        if(empty($key))
-           return $this->container->getParameter()->all();
-
-        return ($this->container->hasParameter($key) ? $this->container->getParameter($key) : null);
-    }
-
-    public function __construct(KernelInterface $kernel)
+    public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->container = $kernel->getContainer();
-
-        $this->chartJs = $this->container->getParameter("chartjs.javascript");
-        $this->stylesheet = $this->container->getParameter("chartjs.stylesheet");
+        $this->javascript = $parameterBag->get("chartjs.javascript");
+        $this->stylesheet = $parameterBag->get("chartjs.stylesheet");
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('render_chart', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('render_chart'  , [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
             new TwigFunction('chartjs_render', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
     }
@@ -66,7 +54,7 @@ class ChartjsTwigExtension extends AbstractExtension implements GlobalsInterface
     public function getGlobals(): array {
 
         return array(
-            'chartjs' => $this->chartJs,
+            'chartjs' => $this->javascript,
             'chartjs_stylesheet' => $this->stylesheet
         );
     }

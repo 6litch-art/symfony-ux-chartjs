@@ -15,15 +15,16 @@
 
         <!-- Twig extension declarations -->
         <service id="chartjs.twig_extension" class="Symfony\UX\Chartjs\Twig\ChartjsTwigExtension">
-            <argument type="service" id="kernel" />
+            <argument type="service" id="parameter_bag" />
             <tag name="twig.extension" />
         </service>
 
         <!-- Litener declarations -->
         <service id="chartjs.listener" class="Symfony\UX\Chartjs\Subscriber\ChartjsListener">
-            <argument type="service" id="kernel" />
+            <tag name="kernel.event_listener" event="kernel.request"  method="onKernelRequest" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+            <argument type="service" id="parameter_bag" />
             <argument type="service" id="twig" />
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
     </services>
