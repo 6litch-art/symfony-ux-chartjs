@@ -25,6 +25,7 @@
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
             <argument type="service" id="parameter_bag" />
             <argument type="service" id="twig" />
+            <argument type="service" id="request_stack" />
         </service>
 
     </services>

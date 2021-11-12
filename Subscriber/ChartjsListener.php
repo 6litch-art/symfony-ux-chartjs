@@ -9,6 +9,7 @@ use Twig\Environment;
 use Base\Service\BaseService;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -17,9 +18,10 @@ class ChartjsListener
 {
     private $twig;
 
-    public function __construct(ParameterBagInterface $parameterBag, Environment $twig)
+    public function __construct(ParameterBagInterface $parameterBag, Environment $twig, RequestStack $requestStack)
     {
-        $this->twig       = $twig;
+        $this->twig         = $twig;
+        $this->requestStack = $requestStack;
 
         $this->autoAppend = $parameterBag->get("chartjs.autoappend");
         $this->javascript = $parameterBag->get("chartjs.javascript");
@@ -44,10 +46,24 @@ class ChartjsListener
         return true;
     }
 
+    public function getAsset(string $url): string
+    {
+        $url = trim($url);
+        $parseUrl = parse_url($url);
+        if($parseUrl["scheme"] ?? false)
+            return $url;
+
+        $path = $parseUrl["path"];
+        if(!str_starts_with($path, "/"))
+            $path = $this->requestStack->getCurrentRequest()->getBasePath()."/".$path;
+
+        return $path;
+    }
+
     public function onKernelRequest(RequestEvent $event)
     {
-        $javascript = "<script src='".$this->javascript."'></script>";
-        $stylesheet = "<link rel='stylesheet' href='".$this->stylesheet."'>";
+        $javascript = "<script src='".$this->getAsset($this->javascript)."'></script>";
+        $stylesheet = "<link rel='stylesheet' href='".$this->getAsset($this->stylesheet)."'>";
 
         $this->twig->addGlobal("chartjs", ["javascript" => $javascript, "stylesheet" => $stylesheet]);
     }
