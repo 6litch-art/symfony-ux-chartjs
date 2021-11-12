@@ -39,7 +39,7 @@ class ChartjsListener
 
     public function onKernelRequest(RequestEvent $event)
     {
-        // If BaseService from my bundle is detected..
+        // If BaseService from this bundle is detected..
         if($this->baseService) {
 
             $this->baseService->addJavascriptFile($this->jsFile);
