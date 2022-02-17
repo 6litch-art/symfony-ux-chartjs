@@ -3,16 +3,11 @@
 namespace Symfony\UX\Chartjs\Subscriber;
 
 use \Symfony\Component\HttpKernel\Event\RequestEvent;
-use \Symfony\Component\HttpFoundation\Response;
 
 use Twig\Environment;
-use Base\Service\BaseService;
-use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class ChartjsListener
 {
@@ -28,6 +23,13 @@ class ChartjsListener
         $this->stylesheet = $parameterBag->get("chartjs.stylesheet");
     }
 
+    public function isProfiler()
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $route = $request->get('_route');
+        return $route == "_wdt" || $route == "_profiler";
+    }
+
     private function allowRender($event)
     {
         if (!$this->autoAppend)
@@ -40,6 +42,9 @@ class ChartjsListener
         if ($contentType && !str_contains($contentType, "text/html"))
             return false;
     
+        if($this->isProfiler())
+            return false;
+
         if (!$event->isMainRequest())
             return false;
         
