@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\UX\Chartjs\Tests;
+namespace Symfony\UX\Chartjs\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
