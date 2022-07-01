@@ -25,14 +25,13 @@ class ChartjsListener
         $this->stylesheet = $parameterBag->get("chartjs.stylesheet");
     }
 
-    public function isProfiler()
+    public function isProfiler($event)
     {
-        $request = $this->requestStack->getCurrentRequest();
-        $route = $request->get('_route');
-        return $route == "_wdt" || $route == "_profiler";
+        $route = $event->getRequest()->get('_route');
+        return str_starts_with($route, "_wdt") || str_starts_with($route, "_profiler");
     }
-
-    private function allowRender($event)
+    
+    private function allowRender(ResponseEvent $event)
     {
         if (!$this->autoAppend)
             return false;
@@ -43,14 +42,11 @@ class ChartjsListener
         $contentType = $event->getResponse()->headers->get('content-type');
         if ($contentType && !str_contains($contentType, "text/html"))
             return false;
-    
-        if($this->isProfiler())
-            return false;
 
         if (!$event->isMainRequest())
             return false;
         
-        return true;
+        return !$this->isProfiler ($event);
     }
 
     public function getAsset(string $url): string
