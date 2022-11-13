@@ -27,10 +27,10 @@ class ChartjsListener
 
     public function isProfiler($event)
     {
-        $route = $event->getRequest()->get('_route');
-        return str_starts_with($route ?? "", "_wdt") || str_starts_with($route ?? "", "_profiler");
+        $route = $event->getRequest()->get('_route') ?? "";
+        return str_starts_with($route, "_wdt") || str_starts_with($route, "_profiler");
     }
-    
+
     private function allowRender(ResponseEvent $event)
     {
         if (!$this->autoAppend)
@@ -45,7 +45,7 @@ class ChartjsListener
 
         if (!$event->isMainRequest())
             return false;
-        
+
         return !$this->isProfiler ($event);
     }
 
