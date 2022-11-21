@@ -1,22 +1,14 @@
 {
     "name": "glitchr/ux-chartjs",
     "type": "symfony-bundle",
-    "description": "Chart.js integration for Symfony",
+    "description": "Chart.js integration for Symfony (fork from UX ChartJS)",
     "keywords": ["symfony", "ux", "chart", "chart.js", "chartjs"],
     "homepage": "https://symfony.com",
-    "license": "GPL",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Marco Meyer",
-            "email": "marco.meyerconde@gmail.com"
-        },
-        {
-            "name": "Titouan Galopin",
-            "email": "galopintitouan@gmail.com"
-        },
-        {
-            "name": "Symfony Community",
-            "homepage": "https://symfony.com/contributors"
+            "email": "marco.meyer@glitchr.io"
         }
     ],
     "autoload": {
