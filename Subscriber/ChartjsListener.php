@@ -69,8 +69,8 @@ class ChartjsListener
 
     public function onKernelRequest(RequestEvent $event)
     {
-        $javascript = "<script src='".$this->getAsset($this->javascript)."'></script>";
-        $stylesheet = "<link rel='stylesheet' href='".$this->getAsset($this->stylesheet)."'>";
+        $javascript = "<script src='".$this->getAsset($this->javascript)."' defer></script>";
+        $stylesheet = "<link rel='preload' href='".$this->getAsset($this->stylesheet)."' as='style' onload='this.onload=null;this.rel=\"stylesheet\"'>";
 
         $this->twig->addGlobal("chartjs", ["javascript" => $javascript, "stylesheet" => $stylesheet]);
     }
