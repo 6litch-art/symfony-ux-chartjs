@@ -15,8 +15,8 @@ class ChartjsListener
 {
     /** @var bool */
     protected ?bool $autoAppend;
-    /** @var bool */
-    protected ?bool $javascript;
+    /** @var string */
+    protected ?string $javascript;
     /** @var string */
     protected ?string $stylesheet;
 
