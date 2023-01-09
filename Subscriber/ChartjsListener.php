@@ -13,19 +13,22 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class ChartjsListener
 {
+    /** @var bool */
+    protected ?bool $autoAppend;
+    /** @var string */
+    protected ?string $javascript;
+    /** @var string */
+    protected ?string $stylesheet;
+
     /**
      * @var Environment
      */
-    private $twig;
+    protected $twig;
 
     /**
      * @var RequestStack
      */
-    private $requestStack;
-
-    private ?bool $autoAppend;
-    private ?string $javascript;
-    private ?string $stylesheet;
+    protected $requestStack;
 
     public function __construct(ParameterBagInterface $parameterBag, Environment $twig, RequestStack $requestStack)
     {
@@ -81,7 +84,7 @@ class ChartjsListener
 
     public function onKernelRequest(RequestEvent $event)
     {
-        $javascript = "<script src='".$this->getAsset($this->javascript)."'></script>";
+        $javascript = "<script src='".$this->getAsset($this->javascript)."' defer></script>";
         $stylesheet = "<link rel='stylesheet' href='".$this->getAsset($this->stylesheet)."'>";
 
         $this->twig->addGlobal("chartjs", ["javascript" => $javascript, "stylesheet" => $stylesheet]);
