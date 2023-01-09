@@ -13,7 +13,19 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class ChartjsListener
 {
+    /**
+     * @var Environment
+     */
     private $twig;
+
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    private ?bool $autoAppend;
+    private ?string $javascript;
+    private ?string $stylesheet;
 
     public function __construct(ParameterBagInterface $parameterBag, Environment $twig, RequestStack $requestStack)
     {
