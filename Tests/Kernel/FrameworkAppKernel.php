@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\UX\Chartjs\Tests\Kernel;
+namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Tests\Kernel;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\UX\Chartjs\ChartjsBundle;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\ChartjsBundle;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>

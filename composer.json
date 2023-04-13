@@ -1,5 +1,5 @@
 {
-    "name": "glitchr/ux-chartjs",
+    "name": "chartjs/chartjs-bundle",
     "type": "symfony-bundle",
     "description": "Chart.js integration for Symfony (fork from UX ChartJS)",
     "keywords": ["symfony", "ux", "chart", "chart.js", "chartjs"],
@@ -13,12 +13,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Symfony\\UX\\Chartjs\\": "."
+            "Chartjs\\": "."
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Symfony\\UX\\Chartjs\\": "./Tests"
+            "Tests\\Chartjs\\": "./Tests"
         }
     },
     "require": {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Symfony\UX\Chartjs\Controller;
+namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Controller;
 
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Builder\ChartBuilderInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\UX\Chartjs\Model\Chart;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
 
 class ChartjsController extends AbstractController
 {

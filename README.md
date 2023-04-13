@@ -24,8 +24,8 @@ create charts in PHP:
 
 ```php
 // ...
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Builder\ChartBuilderInterface;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
 
 class HomeController extends AbstractController
 {
