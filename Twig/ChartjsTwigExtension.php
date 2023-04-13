@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Twig;
+namespace Chartjs\Bundle\Twig;
 
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
+use Chartjs\Bundle\Model\Chart;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

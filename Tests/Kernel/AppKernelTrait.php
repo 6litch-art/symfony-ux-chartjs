@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Tests\Kernel;
+namespace Chartjs\Bundle\Tests\Kernel;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>

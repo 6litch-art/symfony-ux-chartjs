@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\ChartjsBundle\Chartjs\DependencyInjection;
+namespace Chartjs\Bundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -18,9 +18,9 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Builder\ChartBuilder;
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Builder\ChartBuilderInterface;
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Twig\ChartjsTwigExtension;
+use Chartjs\Bundle\Builder\ChartBuilder;
+use Chartjs\Bundle\Builder\ChartBuilderInterface;
+use Chartjs\Bundle\Twig\ChartjsTwigExtension;
 use Twig\Environment;
 
 /**

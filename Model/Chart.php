@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Model;
+namespace Chartjs\Bundle\Model;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>

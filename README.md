@@ -17,8 +17,8 @@ create charts in PHP:
 
 ```php
 // ...
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Builder\ChartBuilderInterface;
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
+use Chartjs\Bundle\Builder\ChartBuilderInterface;
+use Chartjs\Bundle\Model\Chart;
 
 class HomeController extends AbstractController
 {

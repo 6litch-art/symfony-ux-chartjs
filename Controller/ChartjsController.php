@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
+use Chartjs\Bundle\Model\Chart;
 
 class ChartjsController extends AbstractController
 {

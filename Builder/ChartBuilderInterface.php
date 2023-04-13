@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Builder;
+namespace Chartjs\Bundle\Builder;
 
-use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
+use Chartjs\Bundle\Model\Chart;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
