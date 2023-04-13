@@ -12,7 +12,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @inheritdoc
      */
-    public function getConfigTreeBuilder(): TreeBuilder
+    public function getConfigTreeBuilder() : TreeBuilder
     {
         $this->treeBuilder = new TreeBuilder('chartjs');
 
@@ -23,10 +23,7 @@ class Configuration implements ConfigurationInterface
     }
 
     private $treeBuilder;
-    public function getTreeBuilder(): TreeBuilder
-    {
-        return $this->treeBuilder;
-    }
+    public function getTreeBuilder() : TreeBuilder { return $this->treeBuilder; }
 
     private function addGlobalOptionsSection(ArrayNodeDefinition $rootNode)
     {
@@ -34,7 +31,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('autoappend')
                     ->info('Auto-append required dependencies into HTML page')
-                    ->defaultValue(true)
+                    ->defaultValue(True)
                     ->end()
                 ->scalarNode('javascript')
                     ->info('Chart.js file location')

@@ -2,7 +2,7 @@
 
 namespace Symfony\UX\Chartjs\Subscriber;
 
-use Symfony\Component\HttpKernel\Event\RequestEvent;
+use \Symfony\Component\HttpKernel\Event\RequestEvent;
 
 use Twig\Environment;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -48,43 +48,36 @@ class ChartjsListener
 
     private function allowRender(ResponseEvent $event)
     {
-        if (!$this->autoAppend) {
+        if (!$this->autoAppend)
             return false;
-        }
 
-        if (!in_array($event->getResponse()->headers->get('content-type'), array('text/html', null))) {
+        if (!in_array($event->getResponse()->headers->get('content-type'), array('text/html', null)))
             return false;
-        }
 
         $contentType = $event->getResponse()->headers->get('content-type');
-        if ($contentType && !str_contains($contentType, "text/html")) {
+        if ($contentType && !str_contains($contentType, "text/html"))
             return false;
-        }
 
-        if (!$event->isMainRequest()) {
+        if (!$event->isMainRequest())
             return false;
-        }
 
-        return !$this->isProfiler($event);
+        return !$this->isProfiler ($event);
     }
 
     public function getAsset(string $url): string
     {
         $url = trim($url);
         $parseUrl = parse_url($url);
-        if ($parseUrl["scheme"] ?? false) {
+        if($parseUrl["scheme"] ?? false)
             return $url;
-        }
 
         $request = $this->requestStack->getCurrentRequest();
         $baseDir = $request ? $request->getBasePath() : $_SERVER["CONTEXT_PREFIX"] ?? "";
 
         $path = trim($parseUrl["path"]);
-        if ($path == "/") {
-            return $baseDir;
-        } elseif (!str_starts_with($path, "/")) {
+        if($path == "/") return $baseDir;
+        else if(!str_starts_with($path, "/"))
             $path = $baseDir."/".$path;
-        }
 
         return $path;
     }
@@ -99,9 +92,7 @@ class ChartjsListener
 
     public function onKernelResponse(ResponseEvent $event)
     {
-        if (!$this->allowRender($event)) {
-            return false;
-        }
+        if (!$this->allowRender($event)) return false;
 
         $response = $event->getResponse();
         $javascript = $this->twig->getGlobals()["chartjs"]["javascript"] ?? "";
@@ -115,9 +106,8 @@ class ChartjsListener
             $stylesheet."$0",
         ], $response->getContent(), 1);
 
-        if (!is_instanceof($response, [StreamedResponse::class, BinaryFileResponse::class])) {
+        if(!is_instanceof($response, [StreamedResponse::class, BinaryFileResponse::class]))
             $response->setContent($content);
-        }
 
         return true;
     }

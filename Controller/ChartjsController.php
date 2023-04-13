@@ -1,7 +1,6 @@
 <?php
 
 namespace Symfony\UX\Chartjs\Controller;
-
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 use Symfony\Component\Routing\Annotation\Route;

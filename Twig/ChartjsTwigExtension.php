@@ -46,13 +46,13 @@ class ChartjsTwigExtension extends AbstractExtension implements GlobalsInterface
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('render_chart', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFunction('render_chart'  , [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
             new TwigFunction('chartjs_render', [$this, 'renderChart'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
     }
 
-    public function getGlobals(): array
-    {
+    public function getGlobals(): array {
+
         return array(
             'chartjs' => $this->javascript,
             'chartjs_stylesheet' => $this->stylesheet
@@ -71,9 +71,9 @@ class ChartjsTwigExtension extends AbstractExtension implements GlobalsInterface
 
         $attr = "";
         foreach ($chart->getAttributes() as $name => $value) {
-            if ('data-controller' === $name) {
+
+            if ('data-controller' === $name)
                 continue;
-            }
 
             if (true === $value) {
                 $attr .= ' '.$name.'="'.$name.'"';
