@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\UX\Chartjs\Builder;
+namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Builder;
 
-use Symfony\UX\Chartjs\Model\Chart;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>

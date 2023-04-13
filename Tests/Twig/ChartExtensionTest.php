@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\UX\Chartjs\Tests\Twig;
+namespace Chartjs\Bundle\ChartjsBundle\Chartjs\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
-use Symfony\UX\Chartjs\Tests\Kernel\TwigAppKernel;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Builder\ChartBuilderInterface;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Model\Chart;
+use Chartjs\Bundle\ChartjsBundle\Chartjs\Tests\Kernel\TwigAppKernel;
 use Twig\Environment;
 
 /**
