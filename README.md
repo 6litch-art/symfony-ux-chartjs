@@ -1,13 +1,6 @@
 # Symfony UX Chart.js
 
-Symfony UX Chart.js is a Symfony bundle integrating the [Chart.js](https://www.chartjs.org/)
-library in Symfony applications. It is part of [the Symfony UX initiative](https://symfony.com/ux).
-
-## Installation
-
-Symfony UX Chart.js requires PHP 7.2+ and Symfony 4.4+.
-
-Install this bundle using Composer and Symfony Flex:
+It is a fork of symfony/ux-chartjs, but without JS dependencies.
 
 ```sh
 composer require symfony/ux-chartjs
