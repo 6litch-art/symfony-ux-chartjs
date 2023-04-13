@@ -1,5 +1,5 @@
 {
-    "name": "chartjs/chartjs-bundle",
+    "name": "glitchr/ux-chartjs",
     "type": "symfony-bundle",
     "description": "Chart.js integration for Symfony (fork from UX ChartJS)",
     "keywords": ["symfony", "ux", "chart", "chart.js", "chartjs"],
