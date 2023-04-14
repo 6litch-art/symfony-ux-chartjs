@@ -1,6 +1,6 @@
 <?php
 
-namespace Chartjs\Bundle\Subscriber;
+namespace Symfony\UX\Subscriber;
 
 use \Symfony\Component\HttpKernel\Event\RequestEvent;
 

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\Tests;
+namespace Symfony\UX\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Kernel;
-use Chartjs\Bundle\Tests\Kernel\EmptyAppKernel;
-use Chartjs\Bundle\Tests\Kernel\FrameworkAppKernel;
-use Chartjs\Bundle\Tests\Kernel\TwigAppKernel;
+use Symfony\UX\Tests\Kernel\EmptyAppKernel;
+use Symfony\UX\Tests\Kernel\FrameworkAppKernel;
+use Symfony\UX\Tests\Kernel\TwigAppKernel;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>

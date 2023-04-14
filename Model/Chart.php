@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\Model;
+namespace Symfony\UX\Model;
 
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>

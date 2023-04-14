@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Chartjs\Bundle\Twig;
+namespace Symfony\UX\Twig;
 
-use Chartjs\Bundle\Model\Chart;
+use Symfony\UX\Model\Chart;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chartjs\Bundle;
+namespace Symfony\UX;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

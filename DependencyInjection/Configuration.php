@@ -1,6 +1,6 @@
 <?php
 
-namespace Chartjs\Bundle\DependencyInjection;
+namespace Symfony\UX\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
